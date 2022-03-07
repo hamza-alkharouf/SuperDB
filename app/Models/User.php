@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\University;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,22 +16,20 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
-        'username',
+        'name',
+        'type_username_id',
         'email',
-        'password',
         'type',
-        'fullname',
-        'role_id',
-
+        'password',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -40,19 +39,19 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function role(){
-        return $this->belongsTo(Role::class, 'role_id', 'id');
-    }
-
-
-    public function hasPermission($permission)
-    {
-        return $this->role->permissions()->where('code',$permission)->exists();
-    }
+        // One-to-Many (user has many university)
+        public function university()
+        {
+            return $this->hasMany(
+                University::class,    // Related Moadel
+                'user_id',  // FK in the related model
+                'id'            // PK in the current model
+            );
+        }
 }

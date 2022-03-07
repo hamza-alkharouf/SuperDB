@@ -26,8 +26,7 @@ return [
     |
     */
 
-    //'env' => env('APP_ENV', 'production'),
-    'env' => env('APP_ENV', 'local'),
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', true),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -161,9 +160,7 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-      //  Illuminate\App\Providers\FortifyServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\Providers\FortifyServiceProvider::class,
 
         /*
          * Package Service Providers...
